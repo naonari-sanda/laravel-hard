@@ -3,24 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class HelloController extends Controller
 {
-    public function index(Request $request)
+    private $fname;
+
+    public function __construct()
     {
+        $this->fname = 'hello.txt';
+    }
+
+    public function index(Request $request, Response $response)
+    {
+        $msg = 'please input text';
+        $keys = [];
+        $values = [];
+
+        if ($request->isMethod('post')) {
+            $form = $request->all();
+            $result = '<html><body>';
+            foreach ($form as $key => $value) {
+                $result .= $key . ': ' . $value . "<br>";
+            }
+            $result .=  '</body></body>';
+            $response->setContent($result);
+            return $response;
+        }
+
         $data = [
-            'msg' => $request->hello,
+            'msg' => $msg,
+            'keys' => $keys,
+            'values' => $values
         ];
 
         return view('hello.index', $data);
     }
 
-    public function other()
+    public function other(Request $request)
     {
-        $data = [
-            'msg' => $request->bye
-        ];
+        $ext = '.' . $request->file('file')->extension();
 
-        return view('hello.index', $data);
+        Storage::disk('local')->putFileAs('files', $request->file('file'), 'upload' . $ext);
+        return redirect()->route('hello');
     }
 }

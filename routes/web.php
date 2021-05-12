@@ -18,10 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([HelloMiddleware::class])->group(function () {
-    Route::get('/hello/{id}', 'HelloController@index')->where('id', '[0-9]+');
-    Route::get('/hello/other', 'HelloController@other');
-});
+    Route::get('/hello', 'HelloController@index')->name('hello');
+    Route::post('/hello', 'HelloController@index');
 
 Route::namespace('Sample')->group(function () {
     Route::get('/sample', 'SampleController@index');
