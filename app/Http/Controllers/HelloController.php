@@ -15,12 +15,11 @@ class HelloController extends Controller
     {
     }
 
-    public function index(int $id = -1)
+    public function index(Request $request)
     {
-        $myservice->setId($id);
         $data = [
-            'msg'=> $myservice->say(),
-            'data'=> $myservice->alldata()
+            'msg'=> $request->hello,
+            'data'=> $request->alldata,
         ];
         return view('hello.index', $data);
     }
