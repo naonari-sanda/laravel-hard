@@ -2,7 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Model;
+use App\Models\Person;
+use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PersonFactory extends Factory
@@ -12,7 +13,6 @@ class PersonFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
 
     /**
      * Define the model's default state.
@@ -21,14 +21,10 @@ class PersonFactory extends Factory
      */
     public function definition()
     {
-        $factory->define(App\Models\Peason::class, function (Faker $faker) {
-            static $password;
-
-            return [
+        return [
                 'name' => $this->faker->name(),
-                'email' => $this->faker->unique()->safeEmail(),
-                'age' => $this->faker->randomDigit(2)
+                'mail' => $this->faker->unique()->safeEmail(),
+                'age' => $this->faker->numberBetween($min = 16, $max = 90)
             ];
-        });
     }
 }

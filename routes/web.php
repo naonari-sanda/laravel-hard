@@ -18,8 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-    Route::get('/hello/{id}', 'HelloController@index')->name('hello')->middleware('MyMW');
-    Route::get('/hello', 'HelloController@index')->middleware('MyMW');
+    // Route::get('/hello/{id}', 'HelloController@index')->name('hello');
+    Route::get('/hello/{person}', 'HelloController@index');
+
 
 Route::namespace('Sample')->group(function () {
     Route::get('/sample', 'SampleController@index');

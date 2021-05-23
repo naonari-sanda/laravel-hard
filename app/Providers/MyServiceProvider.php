@@ -13,15 +13,15 @@ class MyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->singleton(
-            'myservice',
-            'App\MyClasses\PowerMyService'
-        );
-        app()->singleton(
-            'App\MyClasses\MyServiceInterface',
-            'App\MyClasses\PowerMyService'
-        );
-        echo "<b><MySeriviceProvider/register>register</b><br>";
+        // app()->singleton(
+        //     'myservice',
+        //     'App\MyClasses\PowerMyService'
+        // );
+        // app()->singleton(
+        //     'App\MyClasses\MyServiceInterface',
+        //     'App\MyClasses\PowerMyService'
+        // );
+        // echo "<b><MySeriviceProvider/register>register</b><br>";
     }
 
     /**
@@ -31,6 +31,6 @@ class MyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        echo "<b><MyServiceProvider/boot>boot</b><br>";
+        // echo "<b><MyServiceProvider/boot>boot</b><br>";
     }
 }

@@ -7,11 +7,23 @@
 </head>
 <body>
     <h1>Hello/Index</h1>
-    <p>{!! $msg !!}</p>
-    <ul>
-    @foreach($data as $item)
-        <li>{!! $item !!}</li>
-        @endforeach
-    </ul>
+    <p>{{ $msg }}</p>
+    <div>
+        <form action="/hello" method="post">
+        @csrf
+        <input type="text" id="find" name="find" value="{{$input}}">
+        <input type="submit">
+        </form>
+    </div>
+<table border="1">
+@foreach($data as $item)
+<tr>
+<th>{{ $item->id }}</th>
+<td>{{ $item->name }}</td>
+<td>{{ $item->mail }}</td>
+<td>{{ $item->age }}</td>
+</tr>
+@endforeach
+</table>
 </body>
 </html>

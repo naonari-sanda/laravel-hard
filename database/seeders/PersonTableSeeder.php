@@ -13,6 +13,6 @@ class PersonTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Person::class, 20)->create();
+        \App\Models\Person::factory()->count(30)->create();
     }
 }
