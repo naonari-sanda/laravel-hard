@@ -11,4 +11,10 @@ class Person extends Model
 {
     use HasFactory;
     use Searchable;
+
+    public function getAlldataAttribute()
+    {
+        return $this->name . '(' . $this->age . ')'
+        . '[' . $this->mail . ']';
+    }
 }

@@ -9,38 +9,51 @@ use Illuminate\Support\Facades\Storage;
 use App\Facades\MyService;
 use App\Models\Person;
 use App\Jobs\MyJob;
+use App\Event\PersonEvent;
+
+use Illuminate\Support\Facades\Artisan;
 
 class HelloController extends Controller
 {
-    public function index(Person $person = null)
+    public function index($id = -1)
     {
-        if ($person != null) {
-            MyJob::dispatch($person)->delay(now()->addMinutes(1));
+        if ($id > 0) {
+            $msg = 'id =' . $id;
+            $result = [Person::find($id)];
+        } else {
+            $msg = 'all people data';
+            $result = Person::get();
         }
-        
-        $msg = 'show person record';
-        $result = Person::get();
+
         $data = [
             'input' => '',
             'msg'=> $msg,
             'data'=> $result,
         ];
 
+        Artisan::call("migrate");
+
         return view('hello.index', $data);
+
+        
+        // $msg = 'show person record';
+        // $result = Person::get();
+        // $data = [
+        //     'input' => '',
+        //     'msg'=> $msg,
+        //     'data'=> $result,
+        // ];
+
+        // return view('hello.index', $data);
     }
 
     public function send(Request $request)
     {
-        $input = $request->input('find');
-        $msg = 'search: ' . $input;
-        $result = Person::search($input)->get();
+        $id = $request->input('id');
+        $person = Person::find($id);
 
-        $data = [
-            'input' => $input,
-            'msg' => $msg,
-            'data' => $result
-        ];
+        event(new PersonEvent($person));
 
-        return view('hello.index', $data);
+        return redirect()->route('hello');
     }
 }

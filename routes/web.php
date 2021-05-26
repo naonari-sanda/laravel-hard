@@ -18,8 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-    // Route::get('/hello/{id}', 'HelloController@index')->name('hello');
-    Route::get('/hello/{person}', 'HelloController@index');
+Route::get('/hello/{id}', 'HelloController@index');
+    Route::get('/hello', 'HelloController@index')->name('hello');
+    // Route::post('/hello', 'HelloController@send');
 
 
 Route::namespace('Sample')->group(function () {
